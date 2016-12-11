@@ -6,10 +6,10 @@ cur = conn.cursor()
 
 def cria_tabelas():
 
-	cur.execute('CREATE TABLE unidade_administrativa (sigla varchar, nome varchar PRIMARY KEY, senha int);')
+	cur.execute('CREATE TABLE unidade_administrativa (sigla varchar, nome varchar PRIMARY KEY);')
 	cur.execute('CREATE TABLE unidade_academica (sigla varchar, nome varchar PRIMARY KEY, area_de_conhecimento varchar);')
 
-	cur.execute('CREATE TABLE pessoa (nome varchar NOT NULL, CPF varchar PRIMARY KEY, email_i varchar, email_s varchar, data_nascimento date);')
+	cur.execute('CREATE TABLE pessoa (nome varchar NOT NULL, CPF varchar PRIMARY KEY, email_i varchar, email_s varchar, data_nascimento date, senha varchar);')
 	cur.execute('CREATE TABLE professores (SIAPE varchar, FOREIGN KEY (nome) REFERENCES unidade_academica(nome), regime_de_trabalho int) INHERITS (pessoa);')
 	cur.execute('CREATE TABLE alunos (nro_matricula int, curso varchar) INHERITS (pessoa);')
 	cur.execute('CREATE TABLE tecnicos (SIAPE varchar, FOREIGN KEY (nome) REFERENCES unidade_administrativa(nome)) INHERITS (pessoa);')
@@ -35,7 +35,28 @@ def nova_pessoa():
 	emails = input()
 	print('Digite sua data de nascimento')
 	datanascimento = input()
-	cur.execute("INSERT INTO pessoa VALUES (%s,%s,%s,%s,%s)", (nome,cpf,emaili,emails,datanascimento,))
+	print('Digite sua senha')
+	senha = input()
+	cur.execute("INSERT INTO pessoa VALUES (%s,%s,%s,%s,%s,%s)", (nome,cpf,emaili,emails,datanascimento,senha,))
+	print('Digite 1 para aluno, 2 para professor, 3 para tecnico e 4 para tercerizados')
+	escolha = input()
+	
+	if escolha == 1:
+		print('Digite seu nro_matricula')
+		matricula = input()
+		print('Digite seu curso')
+		curso = input()
+		cur.execute("INSERT INTO aluno (nro_matricula,curso,cpf) VALUES (%s,%s,%s)", (matricula,curso,cpf,))
+
+	if escolha == 2:
+		print('Digite seu SIAPE')
+
+
+
+
+
 	conn.commit()
 
+
 nova_pessoa()
+
