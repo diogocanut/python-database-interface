@@ -40,22 +40,47 @@ def nova_pessoa():
 	cur.execute("INSERT INTO pessoa VALUES (%s,%s,%s,%s,%s,%s)", (nome,cpf,emaili,emails,datanascimento,senha,))
 	print('Digite 1 para aluno, 2 para professor, 3 para tecnico e 4 para tercerizados')
 	escolha = input()
-	
-	if escolha == 1:
+	if escolha == '1':
 		print('Digite seu nro_matricula')
 		matricula = input()
 		print('Digite seu curso')
 		curso = input()
-		cur.execute("INSERT INTO aluno (nro_matricula,curso,cpf) VALUES (%s,%s,%s)", (matricula,curso,cpf,))
+		cur.execute("INSERT INTO alunos (nro_matricula,curso,cpf,nome,email_i,email_s,data_nascimento,senha) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (matricula,curso,cpf,nome,emaili,emails,datanascimento,senha,))
+		conn.commit()
 
-	if escolha == 2:
+	elif escolha == '2':
 		print('Digite seu SIAPE')
+		siape = input()
+
+	elif escolha == '3':
+		print('Digite seu SIAPE')
+		siape = input()
+
+	elif escolha == '4':
+		print('Digite a empresa')
+		empresa = input()
+		print('Digite o setor de atuacao')
+		setor = input()
+		cur.execute("INSERT INTO tercerizados (empresa,setor_atuacao,cpf,nome,email_i,email_s,data_nascimento,senha) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (empresa,setor,cpf,nome,emaili,emails,datanascimento,senha,))
+		conn.commit()
+
+def pessoa_existente():
+	print('Digite seu cpf')
+	cpf = input()
+	print('Digite sua senha')
+	senha = input()
+	cur.execute('SELECT senha FROM pessoa WHERE cpf = %s', (cpf,))
+	x = cur.fetchone()
+	if senha == x[0]:
+		print('LOGADOs')
 
 
 
 
 
-	conn.commit()
+
+
+
 
 
 nova_pessoa()
