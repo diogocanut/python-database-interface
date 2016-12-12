@@ -23,6 +23,43 @@ def cria_tabelas():
 	cur.execute('CREATE TABLE formulario (ID int PRIMARY KEY, FOREIGN KEY (ID) REFERENCES questoes(ID), inicio date, fim date);')
 	conn.commit()
 
+def povoamento_inicial():
+	cur.execute('INSERT INTO unidade_academica VALUES ("facom","faculdade de computacao","exatas");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("famat","faculdade de matematica","exatas");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("fagen","faculdade de gestao de negocios","adminsitrativa");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("IH","instituto de historia","humanas");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("ifilo","instituto de filosofia","humanas");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("ig","instituto de geografia","humanas");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("iciag","instituto de ciencias agrarias","agrarias");')
+	cur.execute('INSERT INTO unidade_academica VALUES ("feciv","faculdade de engenharia civil","exatas");')
+
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("stam","unidade santa monica");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("ed","unidade engenheiro diniz");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("fd","fazenda do gloria");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("umu","campus umuarama");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("educa","campus educacao fisica");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("cp","campos pontal");')
+	cur.execute('INSERT INTO unidade_administrativa VALUES ("santa","campus santa monica");')
+
+	cur.execute('INSERT INTO cursos ("CC","ciencia da computacao","faculdade de computacao");')
+	cur.execute('INSERT INTO cursos ("MAT","matematica","faculdade de matematica");')
+	cur.execute('INSERT INTO cursos ("ADM","administracao","faculdade de gestao de negocios");')
+	cur.execute('INSERT INTO cursos ("HIST","historia","instituto de historia");')
+	cur.execute('INSERT INTO cursos ("FILO","filosofia","instituto de filosofia");')
+	cur.execute('INSERT INTO cursos ("IG","geografia","instituto de geografia");')
+	cur.execute('INSERT INTO cursos ("AGRO","agronomia","instituto de ciencias agrarias");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	cur.execute('INSERT INTO cursos ("CIV","engenharia civil","faculdade de engenharia civil");')
+	
+
+
+
 
 def nova_pessoa():
 	print('Digite seu nome')
@@ -37,7 +74,6 @@ def nova_pessoa():
 	datanascimento = input()
 	print('Digite sua senha')
 	senha = input()
-	cur.execute("INSERT INTO pessoa VALUES (%s,%s,%s,%s,%s,%s)", (nome,cpf,emaili,emails,datanascimento,senha,))
 	print('Digite 1 para aluno, 2 para professor, 3 para tecnico e 4 para tercerizados')
 	escolha = input()
 	if escolha == '1':
@@ -72,7 +108,7 @@ def pessoa_existente():
 	cur.execute('SELECT senha FROM pessoa WHERE cpf = %s', (cpf,))
 	x = cur.fetchone()
 	if senha == x[0]:
-		print('LOGADOs')
+		print('LOGADO')
 
 
 
