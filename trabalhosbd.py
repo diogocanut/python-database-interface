@@ -92,10 +92,20 @@ def nova_pessoa():
 	elif escolha == '2':
 		print('Digite seu SIAPE')
 		siape = input()
+		print('Digite o nome da unidade academica')
+		unidade = input()
+		cur.execute("INSERT INTO professores (SIAPE,nome_u,cpf,nome,email_i,email_s,data_nascimento,senha) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (siape,unidade,cpf,nome,emaili,emails,datanascimento,senha,))
+		conn.commit()
+		print("Criado com sucesso")
 
 	elif escolha == '3':
 		print('Digite seu SIAPE')
 		siape = input()
+		print('Digite o nome da unidade administrativa')
+		unidadea = input()
+		cur.execute("INSERT INTO tecnicos (SIAPE,nome_a,cpf,nome,email_i,email_s,data_nascimento,senha) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (siape,unidadea,cpf,nome,emaili,emails,datanascimento,senha,))
+		conn.commit()
+		print("Criado com sucesso")
 
 	elif escolha == '4':
 		print('Digite a empresa')
@@ -112,9 +122,12 @@ def pessoa_existente():
 	senha = input()
 	cur.execute('SELECT senha FROM pessoa WHERE cpf = %s', (cpf,))
 	x = cur.fetchone()
-	if senha == x[0]:
-		return True
-	else:
+	try:
+		if senha == x[0]:
+			return True
+		else:
+			return False
+	except TypeError:
 		return False
 
 def login():
@@ -126,7 +139,7 @@ def login():
 			nova_pessoa()
 		elif escolha == '2':
 			if pessoa_existente():
-				break
+				return True
 			else:
 				print('CPF ou senha não existentes')
 		elif escolha != '1' and escolha != '2':

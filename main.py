@@ -11,8 +11,20 @@ def main():
 		trabalhosbd.cria_tabelas()
 		trabalhosbd.povoamento_inicial()
 
-	trabalhosbd.login()
-	trabalhosbd.responder_form_existente()
+	
+	logado = False
+	logado = trabalhosbd.login()
+	
+
+	while logado:
+		print('1 - Responder formulario')
+		print('2 - Criar novo formulario')
+		escolha = input()
+		if escolha == '1':
+			trabalhosbd.responder_form_existente()
+		
+
+
 
 
 if __name__ == "__main__":
